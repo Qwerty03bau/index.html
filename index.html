@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestra Historia</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family:'Poppins', Arial, sans-serif;
+    background: url("fondo.png") no-repeat center center fixed;
+    background-size: cover;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Capa oscura para mejor lectura */
+.overlay{
+    background: rgba(0,0,0,0.6);
+    min-height:100vh;
+    padding:80px 20px;
+}
+
+/* Secciones separadas */
+.section{
+    max-width:900px;
+    margin:150px auto;
+    text-align:center;
+}
+
+/* Línea de tiempo */
+.timeline-container{
+    position:relative;
+    margin-top:60px;
+}
+
+.timeline{
+    height:4px;
+    background:white;
+    width:0;
+    animation:growLine 2.5s ease forwards;
+    position:relative;
+}
+
+@keyframes growLine{
+    from{width:0;}
+    to{width:100%;}
+}
+
+.timeline::after{
+    content:"";
+    position:absolute;
+    right:-15px;
+    top:-6px;
+    border-top:8px solid transparent;
+    border-bottom:8px solid transparent;
+    border-left:15px solid white;
+}
+
+/* Marcas */
+.mark{
+    position:absolute;
+    top:-8px;
+    width:18px;
+    height:18px;
+    background:white;
+    border-radius:50%;
+}
+
+.mark.start{ left:0; }
+.mark.middle{ left:60%; }
+
+.year{
+    position:absolute;
+    top:-40px;
+    font-size:20px;
+    font-weight:bold;
+}
+
+.year.start{ left:-10px; }
+.year.middle{ left:58%; }
+
+h2{
+    font-size:22px;
+    line-height:1.8;
+}
+
+h1{
+    font-size:36px;
+    margin-top:40px;
+}
+
+.question{
+    margin-top:60px;
+    font-size:24px;
+}
+
+button{
+    margin:20px;
+    padding:14px 30px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+#yes{
+    background:#22c55e;
+    color:white;
+}
+
+#no{
+    background:#ef4444;
+    color:white;
+}
+
+/* Popup */
+.popup{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    color:#6b21a8;
+    padding:40px 60px;
+    border-radius:20px;
+    font-size:24px;
+    font-weight:bold;
+    display:none;
+    box-shadow:0 0 40px rgba(0,0,0,0.4);
+    animation:fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translate(-50%,-60%);}
+    to{opacity:1; transform:translate(-50%,-50%);}
+}
+
+/* Corazones */
+.heart{
+    position:fixed;
+    bottom:-20px;
+    font-size:20px;
+    animation:floatUp linear forwards;
+    opacity:0.8;
+}
+
+@keyframes floatUp{
+    from{
+        transform:translateY(0);
+        opacity:0.8;
+    }
+    to{
+        transform:translateY(-110vh);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Música automática -->
+<audio autoplay loop>
+    <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+
+<div class="overlay">
+
+    <!-- Línea de tiempo -->
+    <div class="section">
+        <div class="timeline-container">
+            <div class="timeline"></div>
+            <div class="mark start"></div>
+            <div class="year start">2013</div>
+
+            <div class="mark middle"></div>
+            <div class="year middle">2026</div>
+        </div>
+    </div>
+
+    <!-- Texto 1 -->
+    <div class="section">
+        <h2>
+            Pasamos por mil cosas desde que te di el primer y único regalo hasta ahora,
+            hoy no te puedo dar nada pero te puedo dar mi amor toda mi vida.
+        </h2>
+    </div>
+
+    <!-- Texto 2 -->
+    <div class="section">
+        <h2>
+            Hoy es 14 de febrero, el día de los enamorados,
+            y no hay nadie más enamorado en este mundo que yo por vos,
+            así que te quería decir:
+        </h2>
+    </div>
+
+    <!-- Declaración -->
+    <div class="section">
+        <h1>Te amo ayer, hoy y siempre</h1>
+    </div>
+
+    <!-- Pregunta -->
+    <div class="section question">
+        ¿Vos me amás?
+        <br>
+        <button id="yes" onclick="sayYes()">Sí</button>
+        <button id="no" onclick="growYes()">No</button>
+    </div>
+
+</div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+    Te amo siempre mi lu 🥺💜
+</div>
+
+<script>
+
+let size = 1;
+
+function growYes(){
+    size += 0.3;
+    document.getElementById("yes").style.transform = "scale(" + size + ")";
+}
+
+function sayYes(){
+    document.getElementById("popup").style.display = "block";
+}
+
+/* Corazones automáticos */
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💜";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 8000);
+}
+
+setInterval(createHeart, 500);
+
+</script>
+
+</body>
+</html>
